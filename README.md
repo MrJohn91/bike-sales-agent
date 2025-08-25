@@ -45,7 +45,7 @@ The implementation should emphasize:
    *As a sales organization, I want the agent to collect customer details (name, email, phone number) once interest is confirmed, so that a lead can be created in our CRM system.*
 
 
-4. **Appointment Scheduling**  
+4. **Appointment Scheduling**  (OUT_OF_SCOPE)
    *As a customer, I want the agent to book an appointment with a real sales consultant so that I can discuss my needs in more detail.*
 
 
@@ -82,7 +82,7 @@ The implementation should emphasize:
 }
 ```
 
-### 3.4 Appointment Scheduling
+### 3.4 Appointment Scheduling (OUT_OF_SCOPE)
 - After lead creation, and the user confirms for an appointment, the agent should create an appointment.
 - Appointment must be created via following API ``POST /ctream-crm/api/v1/appointments``
 
