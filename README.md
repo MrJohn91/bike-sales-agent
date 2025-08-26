@@ -11,6 +11,31 @@ An intelligent sales assistant for bike shops powered by AI, featuring RAG (Retr
 - **Business Analytics**: Track conversations, leads, and customer insights
 - **24/7 Availability**: Always ready to help customers find the perfect bike
 
+## 🔄 How It Works
+
+```
+         ┌───────────────────┐
+         │   Customer Sends  │
+         │   a Message       │
+         └─────────┬─────────┘
+                   │
+                   ▼
+         ┌───────────────────┐
+         │   AI Sales Agent  │
+         │ - Understands needs│
+         │ - Suggests bikes  │
+         │ - Answers FAQs    │
+         │ - Collects info   │
+         └─────────┬─────────┘
+                   │
+         ┌────────┴────────┐
+         ▼                 ▼
+┌───────────────┐   ┌───────────────┐
+│ Product Info  │   │ Customer Leads│
+│ & Recommendations │  │ Saved for Sales │
+└───────────────┘   └───────────────┘
+```
+
 ##  Quick Start
 
 ### Prerequisites
