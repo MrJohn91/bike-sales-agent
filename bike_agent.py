@@ -245,7 +245,7 @@ Available Products:"""
                 else:
                     return "Lead creation failed"
             except Exception as e:
-                print(f"❌ Lead creation error: {e}")
+                print(f"Lead creation error: {e}")
                 return "Lead creation failed"
         return None
     

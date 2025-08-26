@@ -1,4 +1,4 @@
-# 🚴 Bike AI Sales Assistant
+# 🚴 Bike Sales Agent
 
 An intelligent sales assistant for bike shops powered by AI, featuring RAG (Retrieval-Augmented Generation), conversation persistence, and automatic lead generation.
 
