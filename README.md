@@ -11,7 +11,7 @@ An intelligent sales assistant for bike shops powered by AI, featuring RAG (Retr
 - **Business Analytics**: Track conversations, leads, and customer insights
 - **24/7 Availability**: Always ready to help customers find the perfect bike
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -78,7 +78,7 @@ An intelligent sales assistant for bike shops powered by AI, featuring RAG (Retr
 - `GET /analytics` - Business metrics and insights
 - `GET /health` - System health and database status
 
-## 🏗️ Architecture
+## Architecture
 
 ### Core Components
 
@@ -93,7 +93,7 @@ An intelligent sales assistant for bike shops powered by AI, featuring RAG (Retr
 - **`data/faq.txt`** - Common questions and answers
 - **`data/embeddings/`** - Cached AI vectors for fast search
 
-## 💬 Example Usage
+##  Example Usage
 
 ### Starting a Conversation
 ```bash
@@ -115,7 +115,7 @@ curl -X POST "http://localhost:8000/chat" \
   }'
 ```
 
-## 🔧 Customization
+## Customization
 
 ### Adding New Bikes
 Update `data/product_catalog.json` with your inventory. The AI will automatically learn about new products.
@@ -126,7 +126,7 @@ Edit `data/faq.txt` to customize answers for common questions about warranties, 
 ### Changing AI Personality
 Modify the system prompts in `bike_agent.py` to match your brand voice.
 
-## 📊 Business Benefits
+## Business Benefits
 
 - **Higher Conversion**: AI finds exactly what customers want
 - **24/7 Lead Capture**: Never miss a potential sale
@@ -181,9 +181,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - **README.md** - Quick start and API reference (this file)
 - **SOLUTION.md** - Complete technical and business documentation with detailed examples
 
-## 📞 Support
-
-For questions or support, please open an issue on GitHub or contact the development team.
 
 ---
 
