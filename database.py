@@ -12,7 +12,7 @@ from pymongo.errors import ConnectionFailure
 import asyncio
 from dotenv import load_dotenv
 
-# environment variables
+# env variables
 load_dotenv()
 
 class DatabaseManager:
@@ -40,7 +40,7 @@ class DatabaseManager:
             
             # Test connection
             await self.client.admin.command('ping')
-            print("✅ MongoDB connection successful")
+            print("MongoDB connection successful")
             
             # Get database and collections
             self.db = self.client.bike_sales_agent
@@ -48,7 +48,7 @@ class DatabaseManager:
             self.leads_collection = self.db.leads
             self.customers_collection = self.db.customers
             
-            # Create indexes for better performance
+            # Creating indexes for better performance
             await self._create_indexes()
             
         except ConnectionFailure as e:
