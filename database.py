@@ -12,7 +12,7 @@ from pymongo.errors import ConnectionFailure
 import asyncio
 from dotenv import load_dotenv
 
-# Load environment variables
+# environment variables
 load_dotenv()
 
 class DatabaseManager:
@@ -52,10 +52,10 @@ class DatabaseManager:
             await self._create_indexes()
             
         except ConnectionFailure as e:
-            print(f"❌ MongoDB connection failed: {e}")
+            print(f"MongoDB connection failed: {e}")
             raise
         except Exception as e:
-            print(f"❌ Database setup error: {e}")
+            print(f"Database setup error: {e}")
             raise
     
     async def _create_indexes(self):
@@ -74,7 +74,7 @@ class DatabaseManager:
             await self.customers_collection.create_index("email", unique=True, sparse=True)
             await self.customers_collection.create_index("phone", sparse=True)
             
-            print("📊 Database indexes created")
+            print("Database indexes created")
         except Exception as e:
             print(f"⚠️ Index creation warning: {e}")
     
@@ -110,7 +110,7 @@ class DatabaseManager:
             print(f"💾 Conversation {conversation_id} saved ({len(messages)} messages)")
             
         except Exception as e:
-            print(f"❌ Failed to save conversation: {e}")
+            print(f" Failed to save conversation: {e}")
     
     async def load_conversation(self, conversation_id: str) -> Optional[Dict]:
         """Load conversation from database"""
@@ -131,7 +131,7 @@ class DatabaseManager:
                 return None
                 
         except Exception as e:
-            print(f"❌ Failed to load conversation: {e}")
+            print(f" Failed to load conversation: {e}")
             return None
     
     async def get_conversation_stats(self) -> Dict:
@@ -150,7 +150,7 @@ class DatabaseManager:
                 "recent_conversations": recent_conversations
             }
         except Exception as e:
-            print(f"❌ Failed to get conversation stats: {e}")
+            print(f"Failed to get conversation stats: {e}")
             return {"total_conversations": 0, "recent_conversations": 0}
     
     # ============================================================================
@@ -176,11 +176,11 @@ class DatabaseManager:
             result = await self.leads_collection.insert_one(lead_data)
             lead_id = str(result.inserted_id)
             
-            print(f"🎯 Lead created: {lead_id} for {customer_context.get('email', 'unknown')}")
+            print(f"Lead created: {lead_id} for {customer_context.get('email', 'unknown')}")
             return lead_id
             
         except Exception as e:
-            print(f"❌ Failed to create lead: {e}")
+            print(f"Failed to create lead: {e}")
             return None
     
     async def update_lead_status(self, lead_id: str, status: str, notes: str = None):
@@ -198,10 +198,10 @@ class DatabaseManager:
                 {"$set": update_data}
             )
             
-            print(f"📝 Lead {lead_id} updated to status: {status}")
+            print(f"Lead {lead_id} updated to status: {status}")
             
         except Exception as e:
-            print(f"❌ Failed to update lead: {e}")
+            print(f" Failed to update lead: {e}")
     
     async def get_leads(self, limit: int = 50, status: str = None) -> List[Dict]:
         """Get recent leads"""
@@ -220,7 +220,7 @@ class DatabaseManager:
             return leads
             
         except Exception as e:
-            print(f"❌ Failed to get leads: {e}")
+            print(f"Failed to get leads: {e}")
             return []
     
     # ============================================================================
