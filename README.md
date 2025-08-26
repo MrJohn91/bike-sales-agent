@@ -1,127 +1,190 @@
-# CodeChallenge – Sales Agent for Online Bike Shop
+# 🚴 Bike AI Sales Assistant
 
----
+An intelligent sales assistant for bike shops powered by AI, featuring RAG (Retrieval-Augmented Generation), conversation persistence, and automatic lead generation.
 
-## 1. Introduction
+## ✨ Features
 
-The goal of this challenge is to design and implement a **ChatBot API** that acts as a **Sales AI Agent** for an online bike shop.
+- **Smart Product Search**: AI-powered product recommendations using vector similarity
+- **Natural Conversations**: Chat naturally about bikes and get personalized recommendations
+- **Persistent Memory**: Conversations saved to MongoDB - customers can return anytime
+- **Automatic Lead Generation**: Captures customer interest and contact information
+- **Business Analytics**: Track conversations, leads, and customer insights
+- **24/7 Availability**: Always ready to help customers find the perfect bike
 
-The Sales Agent should be able to:
-- Conduct customer consultations via an API (REST or WebSocket).
-- Recommend products from a given product catalog.
-- Detect customer interest and guide the conversation.
-- Collect customer details (name, email, phone number) when interest is confirmed.
-- Create a **Lead** in the internal CRM system.
-- Schedule an **Appointment** with a real sales consultant.
+## 🚀 Quick Start
 
-This challenge focuses on **automation, data-driven logic, and AI techniques** to simulate a realistic sales workflow.
+### Prerequisites
 
----
+- Python 3.8+
+- [Ollama](https://ollama.ai/) installed and running
+- MongoDB Atlas account (free tier available)
 
-## 2. Focus of the Assignment
+### Installation
 
-The implementation should emphasize:
-- **Automation** – Handle the sales flow with minimal manual intervention.
-- **Data** – Use the provided product catalog as the only source for recommendations.
-- **AI Best Practices** – Apply techniques like Prompt Engineering, Retrieval-Augmented Generation (RAG), and Vector Search.
-- **Scalability** – Package the solution for deployment (e.g., Docker).
-- **Flexibility** – Allow the option of using **local LLMs** in addition to APIs like OpenAI.
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/MrJohn91/bike-sales-agent.git
+   cd bike-sales-agent
+   ```
 
----
+2. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-## 3. Tasks
+3. **Setup Ollama**:
+   ```bash
+   # Install Ollama (if not already installed)
+   curl -fsSL https://ollama.ai/install.sh | sh
+   
+   # Start Ollama server
+   ollama serve
+   
+   # Pull the required model
+   ollama pull llama3.2:3b
+   ```
 
-### Overview
+4. **Configure environment variables**:
+   Create a `.env` file in the project root:
+   ```env
+   # MongoDB Atlas connection
+   DB_CONNECTION_STRING=mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=true&w=majority
+   DB_NAME=bike_sales_agent
+   
+   # Ollama server
+   OLLAMA_URL=http://localhost:11434
+   ```
 
-1. **Conversation API**  
-   *As a customer, I want to interact with the Sales Agent through an API so that I can receive fluent and natural responses to my questions.*
+5. **Run the application**:
+   ```bash
+   uvicorn api:app --host 0.0.0.0 --port 8000 --reload
+   ```
 
+6. **Access the API**:
+   - API Documentation: http://localhost:8000/docs
+   - Health Check: http://localhost:8000/health
 
-2. **Product Recommendation**  
-   *As a customer, I want the agent to recommend bikes from the catalog based on my preferences (type, price, usage) so that I can find a suitable product.*
+## 📡 API Endpoints
 
+### Core Endpoints
+- `POST /chat` - Main conversation endpoint
+  - With `conversation_id`: Continue existing chat
+  - Without `conversation_id`: Start new chat (auto-generates ID)
+- `GET /products` - Get all available bikes
+- `GET /search?query=mountain bike` - AI-powered product search
 
-3. **Lead Creation**  
-   *As a sales organization, I want the agent to collect customer details (name, email, phone number) once interest is confirmed, so that a lead can be created in our CRM system.*
+### Business Intelligence
+- `GET /leads` - View captured sales leads
+- `GET /analytics` - Business metrics and insights
+- `GET /health` - System health and database status
 
+## 🏗️ Architecture
 
-4. **Appointment Scheduling**  (OUT_OF_SCOPE)
-   *As a customer, I want the agent to book an appointment with a real sales consultant so that I can discuss my needs in more detail.*
+### Core Components
 
+- **`api.py`** - FastAPI web server with all endpoints
+- **`bike_agent.py`** - AI conversation logic and business rules
+- **`database.py`** - MongoDB integration for persistence
+- **`embeddings.py`** - Vector search engine for product recommendations
 
-5. **FAQ**  
-   *As a customer, I want the agent to also answer general questions (e.g., delivery, warranty, services) from an FAQ knowledge base, so that I get a complete consultation experience.*
+### Data Storage
 
+- **`data/product_catalog.json`** -  Bike inventory
+- **`data/faq.txt`** - Common questions and answers
+- **`data/embeddings/`** - Cached AI vectors for fast search
 
+## 💬 Example Usage
 
-### 3.1 Conversation API
-- Expose the Sales Agent as an API (REST or WebSocket).
-- Accept customer messages and return agent responses.
-- Maintain a simple **multi-turn conversation** (context awareness).
--
-
-### 3.2 Product Recommendations
-- Use the provided product catalog [bikes](data/product_catalog.json)
-- Provide recommendations based on the customer's message.
-
-### 3.3 Lead Generation
-- When customer interest is confirmed, the agent must collect:
-
-    - Customer name
-    - Email address
-    - Phone number
-
-- Using this information, the agent creates a Lead in the CRM system via a API ```POST /ctream-crm/api/v1/leads```
-
-**Request Payload**
-```json
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "phone": "+491234567"
-}
+### Starting a Conversation
+```bash
+curl -X POST "http://localhost:8000/chat" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "message": "I need a bike for weekend trail riding",
+    "customer_context": {"name": "John"}
+  }'
 ```
 
-### 3.4 Appointment Scheduling (OUT_OF_SCOPE)
-- After lead creation, and the user confirms for an appointment, the agent should create an appointment.
-- Appointment must be created via following API ``POST /ctream-crm/api/v1/appointments``
-
-**Request**
-```json
-{
-  "conversation_id": "XXX",
-  "customer_id": "XXX"
-}
+### Continuing a Conversation
+```bash
+curl -X POST "http://localhost:8000/chat" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "message": "What about something under $2000?",
+    "conversation_id": "uuid-from-previous-response"
+  }'
 ```
 
-### 3.5 FAQ
-- In addition to the product catalog, the agent must also use unstructured text data from: [faq.txt](data/faq.txt)
+## 🔧 Customization
+
+### Adding New Bikes
+Update `data/product_catalog.json` with your inventory. The AI will automatically learn about new products.
+
+### Modifying Responses
+Edit `data/faq.txt` to customize answers for common questions about warranties, delivery, etc.
+
+### Changing AI Personality
+Modify the system prompts in `bike_agent.py` to match your brand voice.
+
+## 📊 Business Benefits
+
+- **Higher Conversion**: AI finds exactly what customers want
+- **24/7 Lead Capture**: Never miss a potential sale
+- **Customer Intelligence**: Build relationships across multiple visits
+- **Staff Efficiency**: Handle routine inquiries automatically
+- **Scalable Growth**: Cloud database grows with your business
+
+## 🛠️ Development
+
+### Project Structure
+```
+bike-sales-agent/
+├── api.py                    # FastAPI web server
+├── bike_agent.py            # AI conversation logic
+├── database.py              # MongoDB integration
+├── embeddings.py            # Vector search engine
+├── requirements.txt         # Python dependencies
+├── .env                     # Environment variables (create this)
+├── data/
+│   ├── product_catalog.json # Bike inventory
+│   ├── faq.txt             # Q&A content
+│   └── embeddings/         # AI search cache
+└── README.md               # This file
+```
+
+### Running Tests
+```bash
+# Test the AI search engine
+python test_embeddings.py
+
+# Test the conversation agent
+python test_agent.py
+
+# Test database connectivity
+python test_database.py
+```
+
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## �  Documentation
+
+- **README.md** - Quick start and API reference (this file)
+- **SOLUTION.md** - Complete technical and business documentation with detailed examples
+
+## 📞 Support
+
+For questions or support, please open an issue on GitHub or contact the development team.
 
 ---
 
-## 4. Requirements & Evaluation
-
-- **Language**: Python
-- **API**: REST or WebSocket
-- **Data**: Use only `/data/bike_shop.json`
-- **AI**:
-    - Visible **prompt engineering**
-    - Apply **RAG** for product recommendations
-    - Use **vector search** (e.g., FAISS, Qdrant, Pinecone)
-    - OpenAI, HuggingFace or local LLMs allowed
-
-**Evaluation Criteria**:
-- Clean API design and error handling
-- Correct use of RAG and vector DB
-- Demonstrated prompt engineering
-- Deployable with Docker
-- Flexible (API or local LLM)
-- Natural and fluent conversation flow
-- Code quality and maintainability
-
----
-
-## 5. Time Limit
-
-⏱️ You have **5 hours** to complete this challenge.  
-Focus on the **core functionality and best practices** first – bonus features are optional.
+**Built with ❤️ for bike shops everywhere**

@@ -1,0 +1,118 @@
+{
+    "info": {
+      "name": "Bike Sales Agent API",
+      "_postman_id": "bike-sales-agent-001",
+      "description": "Collection to test all endpoints for Bike Sales Agent API",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Root",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:8000/",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8000",
+            "path": [""]
+          }
+        }
+      },
+      {
+        "name": "Chat (Continue or New)",
+        "request": {
+          "method": "POST",
+          "header": [{"key": "Content-Type","value": "application/json"}],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"message\": \"I’m looking for a mountain bike suitable for weekend trails\",\n  \"customer_context\": {\n    \"name\": \"John\",\n    \"email\": \"john@test.com\",\n    \"phone\": \"1234567890\"\n  }\n}"
+          },
+          "url": {
+            "raw": "http://localhost:8000/chat",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8000",
+            "path": ["chat"]
+          }
+        }
+      },
+      {
+        "name": "Get Products",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:8000/products",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8000",
+            "path": ["products"]
+          }
+        }
+      },
+      {
+        "name": "Search Products",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:8000/search?query=mountain%20bike&limit=5",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8000",
+            "path": ["search"],
+            "query": [
+              {"key": "query", "value": "mountain bike"},
+              {"key": "limit", "value": "5"}
+            ]
+          }
+        }
+      },
+      {
+        "name": "Get Leads",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:8000/leads?limit=20",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8000",
+            "path": ["leads"],
+            "query": [{"key": "limit","value": "20"}]
+          }
+        }
+      },
+      {
+        "name": "Get Analytics",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:8000/analytics",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8000",
+            "path": ["analytics"]
+          }
+        }
+      },
+      {
+        "name": "Health Check",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:8000/health",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8000",
+            "path": ["health"]
+          }
+        }
+      }
+    ]
+  }
+  
