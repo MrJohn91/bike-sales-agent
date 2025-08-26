@@ -254,9 +254,52 @@ Make it more formal, casual, technical, or friendly based on your brand
 4. **Run the system**:
    ```bash
    uvicorn api:app --host 0.0.0.0 --port 8000 --reload
-   
- ```
- Open API docs: http://localhost:8000/docs
+   ```
+   Open API docs: http://localhost:8000/docs
+
+## 🐳 Docker Deployment 
+
+For the easiest setup, use Docker which handles all dependencies automatically:
+
+### Quick Docker Setup
+1. **Prerequisites**: Install Docker Desktop
+2. **Clone and deploy**:
+   ```bash
+   git clone https://github.com/MrJohn91/bike-sales-agent.git
+   cd bike-sales-agent
+   cp .env.example .env
+   # Edit .env with your MongoDB Atlas credentials
+   docker-compose up -d
+   ```
+
+This automatically:
+- ✅ Builds the Python environment with correct dependencies
+- ✅ Downloads and runs Ollama with llama3.2:3b model
+- ✅ Starts the bike sales agent API
+- ✅ Handles all networking between services
+
+### Docker Commands
+```bash
+# Start services
+docker-compose up -d
+
+# View logs
+docker-compose logs bike-agent
+docker-compose logs ollama
+
+# Stop services
+docker-compose down
+
+# Rebuild 
+docker-compose build --no-cache
+```
+
+### Docker Benefits
+- **Consistent Environment**: Works the same on any machine
+- **Easy Deployment**: One command setup
+- **Dependency Management**: No Python/package conflicts
+- **Production Ready**: Includes health checks and proper networking
+- **Scalable**: Easy to add load balancers, monitoring, etc.
 
 5. **Test everything**:
    ```bash

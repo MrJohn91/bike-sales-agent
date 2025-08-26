@@ -159,6 +159,57 @@ Modify the system prompts in `bike_agent.py` to match your brand voice.
 - **Staff Efficiency**: Handle routine inquiries automatically
 - **Scalable Growth**: Cloud database grows with your business
 
+## 🚀 Docker Deployment
+
+### Quick Deploy with Docker Compose
+
+1. **Clone and setup**:
+   ```bash
+   git clone https://github.com/MrJohn91/bike-sales-agent.git
+   cd bike-sales-agent
+   ```
+
+2. **Create environment file**:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your MongoDB Atlas connection string
+   ```
+
+3. **Deploy with Docker Compose**:
+   ```bash
+   docker-compose up -d
+   ```
+
+This will start:
+- **Bike Sales Agent API** on port 8000
+- **Ollama LLM Server** on port 11434 (automatically downloads llama3.2:3b)
+
+### Docker Benefits
+- ✅ **No dependency conflicts** - Fixed sentence-transformers compatibility
+- ✅ **One-command deployment** - Everything configured automatically  
+- ✅ **Production ready** - Includes health checks and proper networking
+- ✅ **Consistent environment** - Works the same everywhere
+
+### Production Deployment
+
+For production, consider:
+- Using external MongoDB Atlas
+- Setting up reverse proxy (nginx)
+- Enabling SSL/TLS certificates
+- Configuring log aggregation
+- Setting up monitoring and alerts
+
+### Environment Variables
+
+```env
+# Required
+DB_CONNECTION_STRING=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/?retryWrites=true&w=majority
+DB_NAME=bike_sales_agent
+
+# Optional (defaults shown)
+OLLAMA_URL=http://localhost:11434
+```
+
 ## 🛠️ Development
 
 ### Project Structure
