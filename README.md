@@ -48,7 +48,7 @@ An intelligent sales assistant for bike shops powered by AI, featuring RAG (Retr
    Create a `.env` file in the project root:
    ```env
    # MongoDB Atlas connection
-   DB_CONNECTION_STRING=mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=true&w=majority
+   DB_CONNECTION_STRING=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/?retryWrites=true&w=majority
    DB_NAME=bike_sales_agent
    
    # Ollama server
