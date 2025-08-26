@@ -311,7 +311,6 @@ docker-compose build --no-cache
 
 ### API Endpoints
 - `POST /chat` - Main conversation endpoint (auto-generates conversation IDs)
-- `POST /chat/new` - Explicitly start new conversation
 - `GET /products` - Get all bikes
 - `GET /search?query=mountain bike` - Search bikes using AI
 - `GET /leads?limit=20` - View sales leads from database
